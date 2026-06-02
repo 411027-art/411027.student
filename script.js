@@ -3,7 +3,7 @@ const routes = [
     id: "western-north",
     name: "西部幹線 北段",
     desc: "西部幹線北段，臺北、桃園到新竹，車站多且交通熱鬧。",
-    stations: ["台北", "板橋", "桃園", "新竹"],
+    stations: ["台北", "三重", "板橋", "新店", "土城", "樹林", "山佳", "鶯歌", "桃園", "楊梅", "中壢", "內壢", "新竹"],
     features: [
       { type: "bridge", name: "新竹州橋", position: 44 },
       { type: "tunnel", name: "三貂嶺隧道", position: 72 }
@@ -13,7 +13,7 @@ const routes = [
     id: "western-mountain",
     name: "西部幹線 山線",
     desc: "西部幹線山線，經苗栗、台中，穿越丘陵地帶與古老車站。",
-    stations: ["苗栗", "豐原", "台中", "彰化"],
+    stations: ["新竹", "竹中", "新埤", "通霄", "苑裡", "大甲", "豐原", "東勢", "石岡", "新社", "台中", "太原", "烏日", "龍井", "沙鹿", "大肚", "彰化"],
     features: [
       { type: "bridge", name: "大安溪橋", position: 35 },
       { type: "tunnel", name: "大甲隧道", position: 60 }
@@ -23,7 +23,7 @@ const routes = [
     id: "western-coast",
     name: "西部幹線 海線",
     desc: "西部幹線海線，沿著海線行駛，經雲林、嘉義與西濱平原。",
-    stations: ["彰化", "雲林", "嘉義", "台南"],
+    stations: ["彰化", "香山", "新埤", "通霄", "苑裡", "大甲", "沙鹿", "大肚", "龍井", "清水", "梧棲", "新高", "大安", "后里", "豐原", "東勢", "石岡", "新社", "台中", "太原", "烏日", "員林", "永靖", "社頭", "田中", "北斗", "斗六", "斗南", "古坑", "民雄", "嘉義", "東石", "朴子", "布袋", "新營", "鹽水", "下社", "柳營", "後壁", "白河", "台南"],
     features: [
       { type: "bridge", name: "濁水溪橋", position: 42 },
       { type: "tunnel", name: "北港隧道", position: 68 }
@@ -33,7 +33,7 @@ const routes = [
     id: "western-south",
     name: "西部幹線 南段",
     desc: "西部幹線南段，從台南延伸到高雄左營，是南部最重要的幹線路段。",
-    stations: ["台南", "高雄", "左營"],
+    stations: ["台南", "永康", "新市", "大橋", "南科", "善化", "新化", "知子嶺", "關子嶺", "嘉義", "水上", "民雄", "朴子", "布袋", "高雄", "鳳山", "大寶", "大樹", "九曲堂", "屏東", "潮州", "六堆", "南州", "林邊", "東港", "崁頂", "左營"],
     features: [
       { type: "bridge", name: "曾文溪橋", position: 37 },
       { type: "tunnel", name: "鳳山隧道", position: 70 }
@@ -43,7 +43,7 @@ const routes = [
     id: "south-loop",
     name: "南迴線",
     desc: "貫穿南台灣海岸線，從高雄到台東，風景壯闊。",
-    stations: ["左營", "屏東", "潮州", "台東"],
+    stations: ["左營", "高雄", "小港", "屏東", "鳳山", "大社", "林園", "楠梓", "新左營", "民雄", "嘉義", "白河", "台南", "南科", "高雄", "岡山", "橋頭", "楠梓", "高雄", "小港", "屏東", "南州", "林邊", "東港", "潮州", "枋寮", "楓港", "车城", "恆春", "台東"],
     features: [
       { type: "bridge", name: "枋寮橋", position: 45 },
       { type: "tunnel", name: "大武隧道", position: 82 }
@@ -53,7 +53,7 @@ const routes = [
     id: "east-yilan",
     name: "東部幹線 宜蘭線",
     desc: "東部幹線宜蘭線，從台北往宜蘭，沿著山海與河川展開。",
-    stations: ["台北", "宜蘭", "羅東"],
+    stations: ["台北", "松山", "三重", "新店", "南港", "七堵", "八堵", "瑞芳", "侯硐", "三貂嶺", "十分", "平溪", "菁桐", "頭城", "宜蘭", "羅東", "冬山"],
     features: [
       { type: "bridge", name: "蘇澳橋", position: 35 },
       { type: "tunnel", name: "蘇澳隧道", position: 60 }
@@ -63,7 +63,7 @@ const routes = [
     id: "east-north-loop",
     name: "東部幹線 北迴線",
     desc: "東部幹線北迴線，從宜蘭通往花蓮，穿越北部山區。",
-    stations: ["宜蘭", "蘇澳", "花蓮"],
+    stations: ["冬山", "蘇澳", "南方澳", "蘇澳新站", "永樂", "南澳", "東澳", "烏石鼻", "大溪", "和平", "鹿皮溪", "北埤", "三棧", "花蓮"],
     features: [
       { type: "bridge", name: "崇德橋", position: 55 },
       { type: "tunnel", name: "和平隧道", position: 75 }
@@ -73,7 +73,7 @@ const routes = [
     id: "east-taitung",
     name: "東部幹線 臺東線",
     desc: "東部幹線臺東線，從花蓮延伸至台東，海岸與山景兼具。",
-    stations: ["花蓮", "志學", "玉里", "台東"],
+    stations: ["花蓮", "吉安", "志學", "光復", "萬榮", "玉里", "東里", "池上", "關山", "鹿野", "永康", "卑南", "知本", "台東"],
     features: [
       { type: "bridge", name: "八景橋", position: 28 },
       { type: "tunnel", name: "加路蘭隧道", position: 63 }
@@ -83,7 +83,7 @@ const routes = [
     id: "pingxi",
     name: "平溪線",
     desc: "北部支線，經平溪、十分、菁桐等經典鐵道攝影點。",
-    stations: ["瑞芳", "侯硐", "三貂嶺", "十分", "平溪", "菁桐"],
+    stations: ["瑞芳", "猴硐", "四腳亭", "侯硐", "三貂嶺", "暖暖", "十分", "大華", "十分", "平溪", "菁桐"],
     features: [
       { type: "bridge", name: "猴硐橋", position: 35 },
       { type: "tunnel", name: "十分隧道", position: 52 }
