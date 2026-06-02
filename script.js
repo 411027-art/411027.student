@@ -1,22 +1,82 @@
 const routes = [
   {
-    id: "western",
-    name: "西部幹線",
-    desc: "從基隆／樹林到高雄，經過台北、台中、台南等主要車站。",
-    stations: ["基隆", "台北", "樹林", "板橋", "桃園", "新竹", "台中", "彰化", "雲林", "嘉義", "台南", "左營"],
+    id: "western-north",
+    name: "西部幹線 北段",
+    desc: "西部幹線北段，臺北、桃園到新竹，車站多且交通熱鬧。",
+    stations: ["台北", "板橋", "桃園", "新竹"],
     features: [
-      { type: "bridge", name: "大安溪橋", position: 42 },
-      { type: "tunnel", name: "大甲隧道", position: 58 }
+      { type: "bridge", name: "新竹州橋", position: 44 },
+      { type: "tunnel", name: "三貂嶺隧道", position: 72 }
     ]
   },
   {
-    id: "east",
-    name: "東部幹線",
-    desc: "從台北經宜蘭、花蓮到台東，沿著東海岸穿過山海景色。",
-    stations: ["宜蘭", "羅東", "花蓮", "志學", "玉里", "台東"],
+    id: "western-mountain",
+    name: "西部幹線 山線",
+    desc: "西部幹線山線，經苗栗、台中，穿越丘陵地帶與古老車站。",
+    stations: ["苗栗", "豐原", "台中", "彰化"],
     features: [
-      { type: "tunnel", name: "蘇澳隧道", position: 18 },
-      { type: "bridge", name: "八景橋", position: 70 }
+      { type: "bridge", name: "大安溪橋", position: 35 },
+      { type: "tunnel", name: "大甲隧道", position: 60 }
+    ]
+  },
+  {
+    id: "western-coast",
+    name: "西部幹線 海線",
+    desc: "西部幹線海線，沿著海線行駛，經雲林、嘉義與西濱平原。",
+    stations: ["彰化", "雲林", "嘉義", "台南"],
+    features: [
+      { type: "bridge", name: "濁水溪橋", position: 42 },
+      { type: "tunnel", name: "北港隧道", position: 68 }
+    ]
+  },
+  {
+    id: "western-south",
+    name: "西部幹線 南段",
+    desc: "西部幹線南段，從台南延伸到高雄左營，是南部最重要的幹線路段。",
+    stations: ["台南", "高雄", "左營"],
+    features: [
+      { type: "bridge", name: "曾文溪橋", position: 37 },
+      { type: "tunnel", name: "鳳山隧道", position: 70 }
+    ]
+  },
+  {
+    id: "south-loop",
+    name: "南迴線",
+    desc: "貫穿南台灣海岸線，從高雄到台東，風景壯闊。",
+    stations: ["左營", "屏東", "潮州", "台東"],
+    features: [
+      { type: "bridge", name: "枋寮橋", position: 45 },
+      { type: "tunnel", name: "大武隧道", position: 82 }
+    ]
+  },
+  {
+    id: "east-yilan",
+    name: "東部幹線 宜蘭線",
+    desc: "東部幹線宜蘭線，從台北往宜蘭，沿著山海與河川展開。",
+    stations: ["台北", "宜蘭", "羅東"],
+    features: [
+      { type: "bridge", name: "蘇澳橋", position: 35 },
+      { type: "tunnel", name: "蘇澳隧道", position: 60 }
+    ]
+  },
+  {
+    id: "east-north-loop",
+    name: "東部幹線 北迴線",
+    desc: "東部幹線北迴線，從宜蘭通往花蓮，穿越北部山區。",
+    stations: ["宜蘭", "蘇澳", "花蓮"],
+    features: [
+      { type: "bridge", name: "崇德橋", position: 55 },
+      { type: "tunnel", name: "和平隧道", position: 75 }
+    ]
+  },
+  {
+    id: "east-taitung",
+    name: "東部幹線 臺東線",
+    desc: "東部幹線臺東線，從花蓮延伸至台東，海岸與山景兼具。",
+    stations: ["花蓮", "志學", "玉里", "台東"],
+    features: [
+      { type: "bridge", name: "八景橋", position: 28 },
+      { type: "tunnel", name: "加路蘭隧道", position: 63 }
     ]
   },
   {
