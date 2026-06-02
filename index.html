@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>攝影點分享 - 台灣鐵路攝影地圖</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="title-group">
+      <h1>台灣鐵路攝影點分享</h1>
+      <p>選擇路線查看車站、橋樑、隧道，並自由新增攝影點。</p>
+    </div>
+    <div class="route-selector" id="routeSelector"></div>
+  </header>
+
+  <main class="main-content">
+    <section class="map-panel">
+      <div class="map-top">
+        <div class="route-info">
+          <h2 id="routeName">請選擇路線</h2>
+          <p id="routeDesc">畫面下方會顯示該路線的車站節點與標記功能。</p>
+        </div>
+        <div class="legend">
+          <h3>圖例</h3>
+          <div class="legend-item"><span class="legend-dot station"></span> 車站</div>
+          <div class="legend-item"><span class="legend-dot photo"></span> 攝影點</div>
+          <div class="legend-item"><span class="legend-icon bridge"></span> 橋樑</div>
+          <div class="legend-item"><span class="legend-icon tunnel"></span> 隧道</div>
+        </div>
+      </div>
+
+      <div class="line-container" id="lineContainer" aria-label="鐵路路線圖">
+        <div class="rail-line" id="railLine"></div>
+        <div class="feature-layer" id="featureLayer"></div>
+        <div class="station-layer" id="stationLayer"></div>
+        <div class="photo-layer" id="photoLayer"></div>
+      </div>
+      <div class="hint">提示：點選線上任意位置新增攝影點，或點選車站圓點編輯該站點內容。</div>
+    </section>
+
+    <section class="editor-panel" id="editorPanel">
+      <div class="editor-card">
+        <h3 id="editorTitle">尚未選擇攝影點</h3>
+        <div class="editor-body">
+          <div class="field">
+            <label for="pointTitle">標題</label>
+            <input type="text" id="pointTitle" placeholder="輸入攝影點或車站名稱" />
+          </div>
+          <div class="field">
+            <label for="pointPhotoUrl">照片網址</label>
+            <input type="url" id="pointPhotoUrl" placeholder="輸入照片連結或上傳照片" />
+          </div>
+          <div class="field">
+            <label for="pointPhotoFile">上傳照片</label>
+            <input type="file" id="pointPhotoFile" accept="image/*" />
+          </div>
+          <div class="field">
+            <label for="pointNote">說明</label>
+            <textarea id="pointNote" rows="4" placeholder="撰寫此攝影點特色、拍攝角度、時間、設備..." ></textarea>
+          </div>
+          <div class="button-row">
+            <button id="saveButton" class="btn save">儲存內容</button>
+            <button id="removeButton" class="btn remove">刪除攝影點</button>
+          </div>
+        </div>
+        <div class="preview-card" id="previewCard">
+          <h4>預覽</h4>
+          <div class="preview-content" id="previewContent">尚未選取攝影點。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

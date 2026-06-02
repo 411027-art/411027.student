@@ -1,0 +1,377 @@
+:root {
+  --bg: #eef2f6;
+  --panel: #ffffff;
+  --primary: #006699;
+  --accent: #f7941d;
+  --station: #2a7f62;
+  --photo: #ff7f50;
+  --bridge: #3b82f6;
+  --tunnel: #6b7280;
+  --text: #1f2937;
+  --muted: #4b5563;
+  --border: #d1d5db;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  background: linear-gradient(180deg, #f7fafc 0%, #eef2f6 100%);
+  color: var(--text);
+}
+
+body {
+  padding: 24px;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.title-group h1 {
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+}
+
+.title-group p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.route-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.route-button {
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.route-button:hover,
+.route-button.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: rgba(0, 102, 153, 0.2);
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 20px;
+}
+
+.map-panel,
+.editor-panel {
+  background: var(--panel);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.map-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.route-info h2 {
+  margin: 0 0 6px;
+}
+
+.route-info p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.legend {
+  min-width: 220px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.legend h3 {
+  margin-top: 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.legend-dot,
+.legend-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.legend-dot.station { background: var(--station); }
+.legend-dot.photo { background: var(--photo); }
+
+.legend-icon.bridge {
+  border-radius: 4px;
+  background: var(--bridge);
+}
+
+.legend-icon.tunnel {
+  background: var(--tunnel);
+}
+
+.line-container {
+  position: relative;
+  min-height: 620px;
+  padding: 24px 40px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #dce3ea;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.rail-line {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%);
+  width: 6px;
+  height: calc(100% - 80px);
+  background: linear-gradient(to bottom, #94a3b8, #0c4a6e);
+  border-radius: 999px;
+}
+
+.station-item,
+.photo-item,
+.feature-item {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.station-item {
+  display: flex;
+  align-items: center;
+}
+
+.station-dot,
+.photo-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+}
+
+.station-dot {
+  background: var(--station);
+}
+
+.photo-dot {
+  background: var(--photo);
+}
+
+.station-label,
+.feature-label {
+  margin-left: 14px;
+  font-size: 0.96rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.feature-item {
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.feature-marker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #d1d5db;
+}
+
+.feature-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.feature-icon.bridge { background: var(--bridge); }
+.feature-icon.tunnel { background: var(--tunnel); }
+
+.hint {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.editor-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.editor-card h3 {
+  margin: 0;
+}
+
+.editor-body {
+  display: grid;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 0.97rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(0, 102, 153, 0.12);
+}
+
+.button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn.save {
+  background: var(--primary);
+  color: white;
+}
+
+.btn.remove {
+  background: #ef4444;
+  color: white;
+}
+
+.preview-card {
+  background: #f8fafc;
+  border: 1px solid #d1d5db;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.preview-card h4 {
+  margin: 0 0 10px;
+}
+
+.preview-content {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.preview-content img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.photo-preview {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+.preview-meta {
+  display: grid;
+  gap: 8px;
+}
+
+.preview-meta p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (max-width: 1100px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    padding: 16px;
+  }
+
+  .topbar,
+  .map-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .line-container {
+    padding: 18px 20px;
+  }
+
+  .route-selector {
+    justify-content: center;
+  }
+
+  .station-label,
+  .feature-label {
+    font-size: 0.9rem;
+  }
+}
