@@ -93,6 +93,82 @@ body {
   margin-bottom: 20px;
 }
 
+.line-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid #d9e2ec;
+}
+
+.control-title {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.control-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-btn {
+  border: 1px solid var(--primary);
+  background: white;
+  color: var(--primary);
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.control-slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+
+.control-slider input {
+  width: 220px;
+}
+
+#offsetDisplay {
+  min-width: 48px;
+  text-align: right;
+  color: var(--muted);
+}
+
+.line-container {
+  position: relative;
+  min-height: 920px;
+  max-height: 920px;
+  padding: 24px 40px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #dce3ea;
+  border-radius: 24px;
+  overflow-y: auto;
+  touch-action: none;
+  cursor: grab;
+}
+
+.line-track {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.16s ease;
+}
+
 .route-info h2 {
   margin: 0 0 6px;
 }
@@ -144,8 +220,8 @@ body {
 
 .line-container {
   position: relative;
-  min-height: 620px;
-  padding: 24px 40px;
+  min-height: 920px;
+  padding: 36px 40px;
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid #dce3ea;
   border-radius: 24px;
@@ -155,25 +231,27 @@ body {
 .rail-line {
   position: absolute;
   left: 50%;
-  top: 40px;
+  top: 32px;
   transform: translateX(-50%);
   width: 6px;
-  height: calc(100% - 80px);
+  height: calc(100% - 64px);
   background: linear-gradient(to bottom, #94a3b8, #0c4a6e);
   border-radius: 999px;
 }
 
 .station-item,
-.photo-item,
+.photo-item {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+}
+
 .feature-item {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.station-item {
-  display: flex;
-  align-items: center;
+  pointer-events: none;
 }
 
 .station-dot,
@@ -195,17 +273,16 @@ body {
 
 .station-label,
 .feature-label {
-  margin-left: 14px;
   font-size: 0.96rem;
   color: var(--text);
   white-space: nowrap;
 }
 
-.feature-item {
-  width: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
+.station-label {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .feature-marker {

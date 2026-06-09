@@ -98,6 +98,7 @@ const stationLayer = document.getElementById("stationLayer");
 const photoLayer = document.getElementById("photoLayer");
 const featureLayer = document.getElementById("featureLayer");
 const lineContainer = document.getElementById("lineContainer");
+const lineTrack = document.getElementById("lineTrack");
 const editorPanel = document.getElementById("editorPanel");
 const editorTitle = document.getElementById("editorTitle");
 const pointTitle = document.getElementById("pointTitle");
@@ -109,6 +110,51 @@ const removeButton = document.getElementById("removeButton");
 const previewContent = document.getElementById("previewContent");
 
 let selectedRoute = null;
+let lineOffset = 0;
+let currentLineHeight = 0;
+
+function updateLineOffset() {
+  lineTrack.style.transform = `translateY(${lineOffset}px)`;
+}
+
+let isDraggingLine = false;
+let dragMoved = false;
+let dragPointerId = null;
+let dragStartY = 0;
+let dragStartOffset = 0;
+
+function startLineDrag(clientY, pointerId) {
+  isDraggingLine = true;
+  dragMoved = false;
+  dragPointerId = pointerId;
+  dragStartY = clientY;
+  dragStartOffset = lineOffset;
+  lineContainer.style.cursor = "grabbing";
+}
+
+function dragLine(clientY) {
+  if (!isDraggingLine) return;
+  const deltaY = clientY - dragStartY;
+  if (Math.abs(deltaY) > 4) {
+    dragMoved = true;
+  }
+  const limit = currentLineHeight > lineContainer.clientHeight ? currentLineHeight - lineContainer.clientHeight : 120;
+  lineOffset = Math.max(-limit, Math.min(limit, dragStartOffset + deltaY));
+  updateLineOffset();
+}
+
+function endLineDrag() {
+  isDraggingLine = false;
+  if (dragPointerId !== null) {
+    try {
+      lineContainer.releasePointerCapture(dragPointerId);
+    } catch (error) {
+      // ignore if pointer capture was not active
+    }
+    dragPointerId = null;
+  }
+  lineContainer.style.cursor = "default";
+}
 let selectedPoint = null;
 let freePoints = {};
 let imagePreviewUrl = "";
@@ -146,17 +192,25 @@ function renderRoute() {
   featureLayer.innerHTML = "";
   photoLayer.innerHTML = "";
 
+  const stationSpacing = 40;
+  const spacingMultiplier = 13;
+  const verticalPadding = 32;
+  const totalStations = selectedRoute.stations.length;
+  currentLineHeight = stationSpacing * spacingMultiplier * (totalStations - 1) + verticalPadding * 2;
+  lineTrack.style.height = `${currentLineHeight}px`;
+  lineContainer.scrollTop = 0;
+
   selectedRoute.stations.forEach((station, index) => {
-    const position = (index / (selectedRoute.stations.length - 1)) * 100;
+    const top = verticalPadding + index * stationSpacing * spacingMultiplier;
     const stationItem = document.createElement("div");
     stationItem.className = "station-item";
-    stationItem.style.top = `calc(${position}% - 10px)`;
+    stationItem.style.top = `calc(${top}px - 10px)`;
 
     const dot = document.createElement("div");
     dot.className = "station-dot";
     dot.addEventListener("click", event => {
       event.stopPropagation();
-      selectStationPoint(index, station, position);
+      selectStationPoint(index, station, top);
     });
 
     const label = document.createElement("div");
@@ -166,25 +220,6 @@ function renderRoute() {
     stationItem.appendChild(dot);
     stationItem.appendChild(label);
     stationLayer.appendChild(stationItem);
-  });
-
-  selectedRoute.features.forEach(feature => {
-    const featureItem = document.createElement("div");
-    featureItem.className = "feature-item";
-    featureItem.style.top = `calc(${feature.position}% - 16px)`;
-
-    const marker = document.createElement("div");
-    marker.className = "feature-marker";
-    const icon = document.createElement("span");
-    icon.className = `feature-icon ${feature.type}`;
-    const text = document.createElement("span");
-    text.className = "feature-label";
-    text.textContent = `${feature.name} (${feature.type === "bridge" ? "橋樑" : "隧道"})`;
-
-    marker.appendChild(icon);
-    marker.appendChild(text);
-    featureItem.appendChild(marker);
-    featureLayer.appendChild(featureItem);
   });
 }
 
@@ -277,7 +312,7 @@ function renderPhotoPoints() {
     if (point.routeId !== selectedRoute.id) return;
     const photoItem = document.createElement("div");
     photoItem.className = "photo-item";
-    photoItem.style.top = `calc(${point.position}% - 11px)`;
+    photoItem.style.top = `calc(${point.position}px - 11px)`;
 
     const dot = document.createElement("div");
     dot.className = "photo-dot";
@@ -312,11 +347,35 @@ function addPhotoPointAt(position) {
 }
 
 function onLineClick(event) {
-  if (!selectedRoute) return;
+  if (!selectedRoute || dragMoved) {
+    dragMoved = false;
+    return;
+  }
   const rect = lineContainer.getBoundingClientRect();
-  const clickY = event.clientY - rect.top;
-  const position = Math.min(98, Math.max(2, ((clickY - 40) / (rect.height - 80)) * 100));
+  const clickY = event.clientY - rect.top + lineContainer.scrollTop - lineOffset;
+  const minY = 32;
+  const maxY = currentLineHeight - 32;
+  const position = Math.min(maxY, Math.max(minY, clickY));
   addPhotoPointAt(position);
+}
+
+function onLinePointerDown(event) {
+  if (event.target.closest(".station-dot") || event.target.closest(".photo-dot") || event.target.closest(".feature-item")) {
+    return;
+  }
+  event.preventDefault();
+  lineContainer.setPointerCapture(event.pointerId);
+  startLineDrag(event.clientY, event.pointerId);
+}
+
+function onLinePointerMove(event) {
+  if (!isDraggingLine) return;
+  event.preventDefault();
+  dragLine(event.clientY);
+}
+
+function onLinePointerUp() {
+  endLineDrag();
 }
 
 pointPhotoFile.addEventListener("change", event => {
@@ -335,6 +394,10 @@ saveButton.addEventListener("click", saveSelectedPoint);
 removeButton.addEventListener("click", removeSelectedPoint);
 
 lineContainer.addEventListener("click", onLineClick);
+lineContainer.addEventListener("pointerdown", onLinePointerDown);
+lineContainer.addEventListener("pointermove", onLinePointerMove);
+window.addEventListener("pointerup", onLinePointerUp);
+window.addEventListener("pointercancel", onLinePointerUp);
 
 createRouteButtons();
 selectRoute(routes[0].id);

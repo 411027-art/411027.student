@@ -26,16 +26,20 @@
           <h3>圖例</h3>
           <div class="legend-item"><span class="legend-dot station"></span> 車站</div>
           <div class="legend-item"><span class="legend-dot photo"></span> 攝影點</div>
-          <div class="legend-item"><span class="legend-icon bridge"></span> 橋樑</div>
-          <div class="legend-item"><span class="legend-icon tunnel"></span> 隧道</div>
         </div>
       </div>
 
+      <div class="line-controls">
+        <div class="control-title">拖曳以移動路線</div>
+        <p>在路線區域上觸碰或拖曳即可上下移動直線，不會改動車站內容。</p>
+      </div>
       <div class="line-container" id="lineContainer" aria-label="鐵路路線圖">
-        <div class="rail-line" id="railLine"></div>
-        <div class="feature-layer" id="featureLayer"></div>
-        <div class="station-layer" id="stationLayer"></div>
-        <div class="photo-layer" id="photoLayer"></div>
+        <div class="line-track" id="lineTrack">
+          <div class="rail-line" id="railLine"></div>
+          <div class="feature-layer" id="featureLayer"></div>
+          <div class="station-layer" id="stationLayer"></div>
+          <div class="photo-layer" id="photoLayer"></div>
+        </div>
       </div>
       <div class="hint">提示：點選線上任意位置新增攝影點，或點選車站圓點編輯該站點內容。</div>
     </section>
